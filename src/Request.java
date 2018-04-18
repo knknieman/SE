@@ -1,10 +1,12 @@
 
-import com.sun.javafx.fxml.builder.URLBuilder;
-
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
-import java.net.HttpURLConnection;
-
 import java.net.URL;
+
 
 
 public class Request {
@@ -12,48 +14,64 @@ public class Request {
 
     }
 
-    public String parse(Address address) {
+    public String toXml(Address address) {
         String id = "341UNIVE1266";
+
         String xml = (
-                "<AddressValidateRequest USERID=\"" + id + "\">" +
-                        "<Address ID=\"0\">" +
+                "<AddressValidateRequest%20USERID=\"" + id + "\">" +
+                        "<Address%20ID=\"0\">" +
                             "<FirmName></FirmName>" +
                             "<Address1>" + address.getAddress1() + "</Address1>" +
                             "<Address2>" + address.getAddress2() + "</Address2>" +
                             "<City>" + address.getCity() + "</City>" +
+                            "<State>" + address.getState() + "</State>" +
                             "<Zip5>" + address.getZip1() + "</Zip5>" +
                             "<Zip4>" + address.getZip2() + "</Zip4>" +
                         "</Address>" +
                         "</AddressValidateRequest>");
 
-        return xml;
+        return xml.replaceAll("\\s","%20");
     }
 
 
-    public void apiRequest(String xmlAddress)throws IOException{
-        //String urlAddress =  ("http://production.shippingapis.com/ShippingAPI.dll?API=Verify&XML=" + xmlAddress);
-        //String urlAddress = "http://production.shippingapis.com/ShippingAPI.dll";
-        String urlAddress = "https://secure.shippingapis.com/ShippingAPI.dll?API=Verify&XML=" + xmlAddress;
+    public String apiRequest(String xmlAddress){
 
-        System.out.println(urlAddress);
+        String urlAddress =  ("http://production.shippingapis.com/ShippingAPI.dll?API=Verify&XML=" + xmlAddress);
+        String incomingXml;
+
+        try {
             URL url = new URL(urlAddress);
-            HttpURLConnection connect = (HttpURLConnection) url.openConnection();
-        System.out.println(connect.getResponseCode());
-            connect.setRequestMethod("GET");
-            System.out.println(connect.getResponseCode());
-            /*
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(connect.getInputStream()));
+            In page = new In(urlAddress);
+            incomingXml = page.readAll();
+        }catch(IOException e){
+            incomingXml = null;
+            e.printStackTrace();
+        }
+        return incomingXml;
 
-            String inputLine;
-            StringBuffer response = new StringBuffer();
+    }
+    public String[] xmlParse(String xml){
 
-            while((inputLine = in.readLine()) != null){
-                response.append(inputLine);
-            }
-            in.close();
-            System.out.println(response.toString());*/
+        String[] returnAddress = new String[7];
+        try {
+            DocumentBuilder newDocumentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            Document parse = newDocumentBuilder.parse(new ByteArrayInputStream(xml.getBytes()));
+            String[] tags = {"Address1", "Address2", "City", "State", "Zip5", "Zip4"};
+             if (parse.getElementsByTagName("Error").item(0) != null) {
+                 returnAddress[0] = parse.getElementsByTagName("Description").item(0).getTextContent();
+                 return returnAddress;
+             }
 
+             for (int i = 1; i < tags.length; i++) {
+                 if (parse.getElementsByTagName(tags[i]) != null)
+                     returnAddress[i] = (parse.getElementsByTagName(tags[i]).item(0).getTextContent());
+             }
+        } catch (ParserConfigurationException|IOException |SAXException e) {
+            e.printStackTrace();
+        }
+
+
+        return returnAddress;
     }
 
 }

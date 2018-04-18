@@ -1,11 +1,44 @@
-import java.io.IOException;
+import java.util.Scanner;
 
 public class User {
-    public static void main(String[] args)throws IOException {
-        String[] input = {"5706 Fm 1952 Rd", "5706 Fm 1952 Rd", "Wallis", "TX", "77485", ""};
-        Address address = new Address(input);
+    public static void main(String[] args){
+        Address address = new Address();
+        inputArray(address);
         Request request = new Request();
-        request.apiRequest(request.parse(address));
-        //System.out.println(request.parse(address));
+
+        String[] returnedAddress = request.xmlParse(request.apiRequest(request.toXml(address)));
+        out("Returned Address");
+        printArray(returnedAddress);
+    }
+
+    public static void inputArray(Address address){
+        Scanner keys = new Scanner(System.in);
+
+        out("Enter address 1");
+        address.setAddress1(keys.nextLine());
+        out("Enter address 2");
+        address.setAddress2(keys.nextLine());
+        out("Enter City");
+        address.setCity(keys.nextLine());
+        out("Enter State code");
+        address.setState(keys.nextLine());
+        out("Enter zip5");
+        address.setZip1(keys.nextLine());
+        out("Enter zip4");
+        address.setZip2(keys.nextLine());
+
+
+    }
+
+    public static void printArray(String[] array){
+
+        for(int i = 0;i < array.length; i++){
+            if(array[i] != null)
+                System.out.println(array[i]);
+
+        }
+    }
+    public static void out(String in){
+        System.out.println(in);
     }
 }
