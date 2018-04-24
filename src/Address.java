@@ -1,6 +1,7 @@
 public class Address {
-    String address1, address2, city, state, zip1, zip2;
+    String firmName, address1, address2, city, state, zip1, zip2;
     public Address(){
+        firmName = "";
         address1 = "";
         address2 = "";
         city = "";
@@ -9,12 +10,17 @@ public class Address {
         zip2 = "";
     }
     public Address(String[] inputAddress){
-        address1 = inputAddress[0];
-        address2 = inputAddress[1];
-        city = inputAddress[2];
-        state = inputAddress[3];
-        zip1 = inputAddress[4];
-        zip2 = inputAddress[5];
+        setFirmName(inputAddress[0]);
+        setAddress1(inputAddress[1]);
+        setAddress2(inputAddress[2]);
+        setCity(inputAddress[3]);
+        setState(inputAddress[4]);
+        setZip1(inputAddress[5]);
+        setZip2(inputAddress[6]);
+    }
+
+    public void setFirmName(String firmName) {
+        this.firmName = firmName;
     }
 
     public void setAddress1(String address1) {
@@ -39,6 +45,10 @@ public class Address {
 
     public void setZip2(String zip2){
         this.zip2 = zip2;
+    }
+
+    public String getFirmName() {
+        return firmName;
     }
 
     public String getAddress1(){

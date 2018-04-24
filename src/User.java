@@ -7,13 +7,14 @@ public class User {
         Request request = new Request();
 
         String[] returnedAddress = request.xmlParse(request.apiRequest(request.toXml(address)));
-        out("Returned Address");
         printArray(returnedAddress);
     }
 
     public static void inputArray(Address address){
         Scanner keys = new Scanner(System.in);
 
+        out("Enter FirmName");
+        address.setFirmName(keys.nextLine());
         out("Enter address 1");
         address.setAddress1(keys.nextLine());
         out("Enter address 2");
@@ -31,6 +32,11 @@ public class User {
     }
 
     public static void printArray(String[] array){
+
+        if(array.length > 1)
+            out("Returned address");
+        else
+            out("Error");
 
         for(int i = 0;i < array.length; i++){
             if(array[i] != null)
