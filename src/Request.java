@@ -1,17 +1,14 @@
+package softwareengineeringproject;
 
+import static com.sun.javafx.util.Utils.split;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-import static com.sun.javafx.util.Utils.split;
+import java.io.*;
+import java.net.*;
+import java.net.URLEncoder;
 
 
 public class Request {
@@ -30,18 +27,24 @@ public class Request {
                             "<Address2>" + address.getAddress2() + "</Address2>" +
                             "<City>" + address.getCity() + "</City>" +
                             "<State>" + address.getState() + "</State>" +
-                            "<Zip5>" + address.getZip1() + "</Zip5>" +
-                            "<Zip4>" + address.getZip2() + "</Zip4>" +
+                            "<Zip5>" + address.getZip5() + "</Zip5>" +
+                            "<Zip4>" + address.getZip4() + "</Zip4>" +
                         "</Address>" +
                         "</AddressValidateRequest>");
-
-        return xml.replaceAll("\\s","%20").replaceAll("#", "%23");
+        try{
+            return URLEncoder.encode(xml, "UTF-8");
+        }
+        catch(UnsupportedEncodingException e){
+        }        
+        
+        return "";
     }
+    
 
 
-    public String apiRequest(String xmlAddress){
+    public String apiRequest(String xmlAddress) {
 
-        String urlAddress =  ("http://production.shippingapis.com/ShippingAPI.dll?API=Verify&XML=" + xmlAddress);
+        String urlAddress =  ("https://secure.shippingapis.com/ShippingAPI.dll?API=Verify&XML=" + xmlAddress);
         String incomingXml;
 
         try {
@@ -64,9 +67,9 @@ public class Request {
             e.printStackTrace();
         }
         return incomingXml;
-
     }
-    public String[] xmlParse(String xml){
+    public String[] xmlParse(String xml) throws UnsupportedEncodingException{
+
         StringBuilder returnBuild = new StringBuilder();
         String[] tags = {"FirmName","Address1", "Address2", "City", "State", "Zip5", "Zip4"};
 
