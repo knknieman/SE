@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400" prefWidth="450" xmlns:fx="http://javafx.com/fxml/1" fx:controller="softwareengineeringproject.FXMLDocumentController">
+    <children>
+        <Text fx:id="title" wrappingWidth="200" layoutX="140" layoutY="40" text="Address Validation"></Text>
+        <Label layoutX="10" layoutY="70" prefWidth="100" fx:id="FirmNameLabel" text="Firm Name:"/>
+        <TextField layoutX="110" layoutY="70" prefWidth="150" maxHeight="10" fx:id="FirmName"></TextField>
+        <Label layoutX="10" layoutY="110" prefWidth="100" fx:id="Address1Label" text="Address 1:"/>
+        <TextField layoutX="110" layoutY="110" prefWidth="150" maxHeight="10" fx:id="Address1"></TextField>
+        <Label layoutX="10" layoutY="150" prefWidth="100" fx:id="Address2Label" text="Address 2:"/>
+        <TextField layoutX="110" layoutY="150" prefWidth="150" maxHeight="10" fx:id="Address2"></TextField>
+        <Label layoutX="10" layoutY="190" prefWidth="100" fx:id="CityLabel" text="City:"/>
+        <TextField layoutX="110" layoutY="190" prefWidth="150" maxHeight="10" fx:id="City"></TextField>
+        <Label layoutX="10" layoutY="230" prefWidth="100" fx:id="StateLabel" text="State Code:"/>
+        <TextField layoutX="110" layoutY="230" prefWidth="30" maxHeight="10" fx:id="State"></TextField>
+        <Label layoutX="10" layoutY="270" prefWidth="100" fx:id="Zip4Label" text="Zip:"/>
+        <TextField layoutX="110" layoutY="270" prefWidth="150" maxHeight="10" fx:id="Zip5"></TextField>
+        <Label layoutX="10" layoutY="310" prefWidth="100" fx:id="Zip5Label" text="Postal Code:"/>
+        <TextField layoutX="110" layoutY="310" prefWidth="150" maxHeight="10" fx:id="Zip4"></TextField>
+        <Button layoutX="150" layoutY="355" text="Submit" onAction="#Submit" fx:id="Submit" />
+        <Button layoutX="230" layoutY="355" text="Cancel" onAction="#Cancel" fx:id="Cancel" />
+        <TextArea layoutX="275" layoutY="70" editable="false" fx:id="output"></TextArea>
+    </children>
+</AnchorPane>

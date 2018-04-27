@@ -1,28 +1,31 @@
+package softwareengineeringproject;
+
 public class Address {
-    String firmName, address1, address2, city, state, zip1, zip2;
+    String firmName, address1, address2, city, state, zip5, zip4;
+    
     public Address(){
         firmName = "";
         address1 = "";
         address2 = "";
         city = "";
         state = "";
-        zip1 = "";
-        zip2 = "";
+        zip5 = "";
+        zip4 = "";
     }
     public Address(String[] inputAddress){
-        setFirmName(inputAddress[0]);
-        setAddress1(inputAddress[1]);
-        setAddress2(inputAddress[2]);
-        setCity(inputAddress[3]);
-        setState(inputAddress[4]);
-        setZip1(inputAddress[5]);
-        setZip2(inputAddress[6]);
+        firmName = inputAddress[0];
+        address1 = inputAddress[1];
+        address2 = inputAddress[2];
+        city = inputAddress[3];
+        state = inputAddress[4];
+        zip5 = inputAddress[5];
+        zip4 = inputAddress[6];
     }
 
-    public void setFirmName(String firmName) {
+    public void setFirmName(String firmName){
         this.firmName = firmName;
     }
-
+    
     public void setAddress1(String address1) {
         this.address1 = address1;
     }
@@ -39,18 +42,18 @@ public class Address {
         this.state = state;
     }
 
-    public void setZip1(String zip1){
-        this.zip1 = zip1;
+    public void setZip5(String zip1){
+        this.zip5 = zip5;
     }
 
-    public void setZip2(String zip2){
-        this.zip2 = zip2;
+    public void setZip4(String zip2){
+        this.zip4 = zip4;
     }
 
-    public String getFirmName() {
+    public String getFirmName(){
         return firmName;
     }
-
+    
     public String getAddress1(){
         return address1;
     }
@@ -67,12 +70,12 @@ public class Address {
         return state;
     }
 
-    public String getZip1() {
-        return zip1;
+    public String getZip5() {
+        return zip5;
     }
 
-    public String getZip2() {
-        return zip2;
+    public String getZip4() {
+        return zip4;
     }
 
 }
